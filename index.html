@@ -6,16 +6,32 @@
         <title>Vergil Quiz Generator</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/skeleton.css">
     </head>
     <body>
-    <p>Welcome to the <em>Aeneid</em> quiz generator!</p>
-        <form class="vergil_form">
-            <label for="number_lines">Number of lines:</label>
-            <input id="number_lines" type="number" min="1" max="10"></input>
-            <br/>
-            <input type="submit" name="submit" class="submit" value="Generate your quiz!"/>
-        </form>
-        <div class="quiz_result"></div>
+        <div class="container">
+            <h2>Aeneid Quiz Generator</h2>
+            <p>Welcome to the <em>Aeneid</em> quiz generator!</p>
+
+            <form class="vergil_form">
+                <div class="row">
+                    <div class="six columns">
+                        <label for="number_lines">Number of lines:</label>
+                        <input id="number_lines" type="number" min="1" max="10"></input>
+                    </div>
+                </div>
+                <div class"row">
+                    <input type="submit" name="submit" class="submit" value="Generate your quiz!"/>
+                </div>
+            </div>
+            </form>
+
+            <div class="row">
+                <div class="quiz_result"></div>
+            </div>
+        </div>
+
         <script src="https://code.jquery.com/jquery-1.12.2.min.js"></script>
         <script>
             //set HTML5 validity events for number box
@@ -29,10 +45,13 @@
                 var target_url = base_url + '&lines=' + lines;
                 $.ajax({url: target_url, success: function(result){
                     console.log(result);
+                    var title = document.createElement("p");
+                    title.innerHTML = "Book " + result.book + ", lines " + result.start_line + "-" + (result.start_line + result.number_of_lines);
                     line_array = result.text;
                     var poem = document.createElement("dd");
                     for (i=0; i < line_array.length; i++) {
-                        $(poem).append("<dd>" + line_array[i] +"</dd>");
+                        $(poem).append("<dd>" + line_array[i] +"</dd>").prepend(title);
+
                     }
                     $(".quiz_result").html(poem);
 
