@@ -11,17 +11,21 @@
     <p>Welcome to the <em>Aeneid</em> quiz generator!</p>
         <form class="vergil_form">
             <label for="number_lines">Number of lines:</label>
-            <input type="text" class="number_lines"></input>
+            <input id="number_lines" type="number" min="1" max="10"></input>
             <br/>
             <input type="submit" name="submit" class="submit" value="Generate your quiz!"/>
         </form>
         <div class="quiz_result"></div>
         <script src="https://code.jquery.com/jquery-1.12.2.min.js"></script>
         <script>
+            //set HTML5 validity events for number box
+            document.getElementById('number_lines').setCustomValidity('Number of lines must be between 1 and 10');
+
+            //generation code
             $( ".submit" ).on("click", function(event) {
-                event.preventDefault();
+                validateLines();
                 var base_url="http://api.aeneid.eu/sortes?version=latin";
-                var lines = $(".number_lines").val();
+                var lines = $("#number_lines").val();
                 var target_url = base_url + '&lines=' + lines;
                 $.ajax({url: target_url, success: function(result){
                     console.log(result);
@@ -29,6 +33,10 @@
 
                 }});
             });
+
+            function validateLines () {
+                document.getElementById('number_lines').checkValidity();
+            }
         </script>
     </body>
 </html>
