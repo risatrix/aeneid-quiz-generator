@@ -8,8 +8,27 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-        <p>Hello world! This is HTML5 Boilerplate.</p>
-
+    <p>Welcome to the <em>Aeneid</em> quiz generator!</p>
+        <form class="vergil_form">
+            <label for="number_lines">Number of lines:</label>
+            <input type="text" class="number_lines"></input>
+            <br/>
+            <input type="submit" name="submit" class="submit" value="Generate your quiz!"/>
+        </form>
+        <div class="quiz_result"></div>
         <script src="https://code.jquery.com/jquery-1.12.2.min.js"></script>
+        <script>
+            $( ".submit" ).on("click", function(event) {
+                event.preventDefault();
+                var base_url="http://api.aeneid.eu/sortes?version=latin";
+                var lines = $(".number_lines").val();
+                var target_url = base_url + '&lines=' + lines;
+                $.ajax({url: target_url, success: function(result){
+                    console.log(result);
+                    $(".quiz_result").html(result.text);
+
+                }});
+            });
+        </script>
     </body>
 </html>
