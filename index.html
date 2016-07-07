@@ -29,7 +29,12 @@
                 var target_url = base_url + '&lines=' + lines;
                 $.ajax({url: target_url, success: function(result){
                     console.log(result);
-                    $(".quiz_result").html(result.text);
+                    line_array = result.text;
+                    var poem = document.createElement("dd");
+                    for (i=0; i < line_array.length; i++) {
+                        $(poem).append("<dd>" + line_array[i] +"</dd>");
+                    }
+                    $(".quiz_result").html(poem);
 
                 }});
             });
