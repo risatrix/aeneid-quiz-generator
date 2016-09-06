@@ -12,7 +12,7 @@
     <body>
         <div class="container">
             <h2>Aeneid Quiz Generator</h2>
-            <p>Welcome to the <em>Aeneid</em> quiz generator!</p>
+            <p>Welcome to the <em>Aeneid</em> quiz generator! Enter the number of lines you need, and when you submit, a random passage will be chosen. You must enter between 1 and 10 in the number of lines box.</p>
 
             <form class="vergil_form">
                 <div class="row">
@@ -38,7 +38,6 @@
 
             //generation code
             $( ".submit" ).on("click", function(event) {
-                validateLines();
                 var base_url="http://api.aeneid.eu/sortes?version=latin";
                 var lines = $("#number_lines").val();
                 var target_url = base_url + '&lines=' + lines;
@@ -57,9 +56,6 @@
                 }});
             });
 
-            function validateLines () {
-                document.getElementById('number_lines').checkValidity();
-            }
         </script>
     </body>
 </html>
